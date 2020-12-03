@@ -35,18 +35,30 @@ public final class PersonWarehouse implements Iterable<Person> {
     /**
      * @return list of names of Person objects
      */ // TODO
+
     public List<String> getNames() {
-        return null;
+        return people.stream()
+                //.map(Person::getName)
+                .map(P -> P.getName())
+                .collect(Collectors.toList());
     }
 
 
     /**
      * @return list of uniquely named Person objects
      */ //TODO
-    public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+   // public Stream<Person> getUniquelyNamedPeople() {
+    //    return null;
+   // }
+    /**
+     * @return list of uniquely named Person objects
+     */ //TODO
+    public  Stream<Person> getUniquelyNamedPeople() {
+        return people.stream().filter(P -> getOccurrences(P.getName()) == 1L);
     }
-
+    public  Long getOccurrences(String name) {
+        return people.stream().filter(P -> P.getName().equals(name)).count();
+    }
 
     /**
      * @param character starting character of Person objects' name
